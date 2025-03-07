@@ -4,3 +4,9 @@ assets/external/
 __pycache__/
 *.db
 .states
+.venv
+.env
+.DS_Store
+node_modules/
+dist/
+build/
