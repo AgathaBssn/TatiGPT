@@ -1,0 +1,12 @@
+[project]
+name = "tatigpt"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "isort>=6.0.1",
+    "pre-commit>=4.1.0",
+    "reflex>=0.7.1",
+    "ruff>=0.9.9",
+]
