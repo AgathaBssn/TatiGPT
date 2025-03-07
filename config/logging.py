@@ -1,5 +1,6 @@
-import sys
 import logging
+import sys
+
 import structlog
 
 logging.basicConfig(level=logging.INFO)
@@ -8,7 +9,7 @@ shared_processors = [
     structlog.stdlib.add_log_level,
     structlog.stdlib.add_logger_name,
     structlog.processors.TimeStamper(fmt="iso", utc=True),
-    structlog.processors.StackInfoRenderer()
+    structlog.processors.StackInfoRenderer(),
 ]
 
 if sys.stdout.isatty():

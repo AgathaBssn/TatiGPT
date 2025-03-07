@@ -1,16 +1,16 @@
 import reflex as rx
 
-from TatiGPT.components.sidebar import lateral_menu, DrawerState
-from TatiGPT.components.chat.chat_thread import chat_thread
 from TatiGPT.components.chat.chat_state import ChatState
+from TatiGPT.components.chat.chat_thread import chat_thread
+from TatiGPT.components.sidebar import DrawerState, lateral_menu
 
 
 @rx.page(
-        route="/tatiGPT", 
-        title="AI Chat", 
-        description="Chat with TatiGPT",
-        )
-def ai_chat()-> rx.Component:
+    route="/tatiGPT",
+    title="AI Chat",
+    description="Chat with TatiGPT",
+)
+def ai_chat() -> rx.Component:
     return (
         lateral_menu(),
         rx.container(

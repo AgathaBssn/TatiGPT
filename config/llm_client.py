@@ -1,11 +1,11 @@
 import os
+
 import requests
-import json
 
 API_KEY = os.getenv("AIMLAPI_KEY")
 
-class LlmClient:
 
+class LlmClient:
     async def get_response(self, messages: list[dict[str, str]]) -> dict:
         if not API_KEY:
             raise ValueError("❌ API key is missing! Check your environment variables.")
@@ -23,9 +23,7 @@ class LlmClient:
             "max_tokens": 512,
             "stop": "",  # Empty string as required
             "stream": False,
-            "stream_options": {
-                "include_usage": True
-            },
+            "stream_options": {"include_usage": True},
             "n": 1,
             "seed": 1,
             "top_p": 1,
@@ -44,13 +42,11 @@ class LlmClient:
                     "function": {
                         "description": "",
                         "name": "",
-                        "parameters": None  # Must be explicitly `null`
-                    }
+                        "parameters": None,  # Must be explicitly `null`
+                    },
                 }
             ],
-            "response_format": {
-                "type": "text"
-            }
+            "response_format": {"type": "text"},
         }
 
         try:

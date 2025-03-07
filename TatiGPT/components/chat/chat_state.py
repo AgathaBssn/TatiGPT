@@ -1,6 +1,8 @@
 import reflex as rx
-from config.logging import logger
+
 from config.llm_client import llm_client
+from config.logging import logger
+
 
 class ChatState(rx.State):
     chat_history: list[dict[str, str]] = []
@@ -26,8 +28,16 @@ class ChatState(rx.State):
         self.current_user_input = ""
 
         messages = [
-            {"role": "system", "content": "You are an AI assistant.", "name": "assistant"},
-            {"role": "user", "content": self.chat_history[-1]["question"], "name": "user"}
+            {
+                "role": "system",
+                "content": "You are an AI assistant.",
+                "name": "assistant",
+            },
+            {
+                "role": "user",
+                "content": self.chat_history[-1]["question"],
+                "name": "user",
+            },
         ]
         response = await llm_client.get_response(messages)
         logger.info(f"Response: {response}")
