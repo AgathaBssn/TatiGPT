@@ -1,65 +1,34 @@
 import os
-
 import requests
-
-API_KEY = os.getenv("AIMLAPI_KEY")
-
+from together import Together
 
 class LlmClient:
-    async def get_response(self, messages: list[dict[str, str]]) -> dict:
-        if not API_KEY:
-            raise ValueError("❌ API key is missing! Check your environment variables.")
+    def __init__(self):
+        self.client = Together()
 
-        url = "https://api.aimlapi.com/v1/chat/completions"
+    def get_response(self, user_input: str):
+        # Vérification pour s'assurer que user_input est une chaîne de caractères valide
+        if not isinstance(user_input, str) or not user_input.strip():
+            raise ValueError("Le contenu de l'entrée utilisateur doit être une chaîne de caractères non vide.")
 
-        headers = {
-            "Authorization": f"Bearer {API_KEY}",
-            "Content-Type": "application/json",
-        }
+        # Ajout du champ "type" dans le message
+        messages = [
+            {"role": "user", "content": user_input, "type": "text"}
+        ]
+        
+        # Création de la demande de complétion
+        stream = self.client.chat.completions.create(
+            model="meta-llama/Llama-Vision-Free",
+            messages=messages,
+            stream=True
+        )
 
-        payload = {
-            "model": "meta-llama/Llama-Vision-Free",
-            "messages": messages,  # Must contain at least one message
-            "max_tokens": 512,
-            "stop": "",  # Empty string as required
-            "stream": False,
-            "stream_options": {"include_usage": True},
-            "n": 1,
-            "seed": 1,
-            "top_p": 1,
-            "top_k": 1,
-            "temperature": 1,
-            "repetition_penalty": None,  # Must be `null`
-            "logprobs": None,  # Must be `null`
-            "echo": True,
-            "min_p": 1,
-            "presence_penalty": None,  # Must be `null`
-            "frequency_penalty": None,  # Must be `null`
-            "logit_bias": None,  # Must be `null`
-            "tools": [
-                {
-                    "type": "function",
-                    "function": {
-                        "description": "",
-                        "name": "",
-                        "parameters": None,  # Must be explicitly `null`
-                    },
-                }
-            ],
-            "response_format": {"type": "text"},
-        }
+        response_content = ""
+        for chunk in stream:
+            response_content += chunk.choices[0].delta.content or ""
 
-        try:
-            response = requests.post(url, headers=headers, json=payload)
+        return response_content
 
-            if response.status_code == 429:
-                return {"error": "limit raised"}
-
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            print(f"❌ API Request Failed: {e}")
-            return {"error": str(e)}
-
-
+# Usage example
 llm_client = LlmClient()
+

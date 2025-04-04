@@ -24,23 +24,18 @@ class ChatState(rx.State):
 
     @rx.event
     async def handle_user_input(self):
+        # Ajouter la question de l'utilisateur à l'historique
         self.chat_history.append({"question": self.current_user_input, "answer": ""})
+        # Réinitialiser le champ d'entrée de l'utilisateur
         self.current_user_input = ""
 
-        messages = [
-            {
-                "role": "system",
-                "content": "You are an AI assistant.",
-                "name": "assistant",
-            },
-            {
-                "role": "user",
-                "content": self.chat_history[-1]["question"],
-                "name": "user",
-            },
-        ]
-        response = await llm_client.get_response(messages)
+        # Passer uniquement la question de l'utilisateur (et non un message complet)
+        response = llm_client.get_response(self.chat_history[-1]["question"])
+        
+        # Afficher la réponse dans l'historique du chat
         logger.info(f"Response: {response}")
-        answer = response["choices"][0]["message"]["content"]
-        self.chat_history[-1]["answer"] = answer
+        # Supposons que la réponse est directement la chaîne de texte de l'IA
+        self.chat_history[-1]["answer"] = response
+
+        # Logguer l'historique du chat après la réponse
         logger.info(f"Chat history: {self.chat_history}")

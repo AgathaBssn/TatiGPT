@@ -10,4 +10,5 @@ dependencies = [
     "reflex>=0.7.1",
     "ruff>=0.9.9",
     "structlog>=25.1.0",
+    "together>=1.5.5",
 ]
