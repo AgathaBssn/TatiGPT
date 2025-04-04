@@ -3,4 +3,9 @@
 .states
 .web
 __pycache__/
-assets/external/
+.venv
+.env
+.DS_Store
+node_modules/
+dist/
+build/
