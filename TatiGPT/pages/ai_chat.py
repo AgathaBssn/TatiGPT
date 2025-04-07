@@ -19,18 +19,32 @@ def ai_chat() -> rx.Component:
                 chat_thread(),
                 padding="2em",
                 margin="2em",
+                overflow_y="auto",  # Enable scrolling for the chat thread
+                height="calc(100vh - 100px)",  # Adjust height to leave space for the input bar
             ),
-            rx.form(
-                rx.input(
-                    placeholder="Type your message here...",
-                    enter_key_submit=True,
-                    on_change=ChatState.set_current_user_input,
-                    value=ChatState.current_user_input,
-                    width="100%",
+            rx.box(
+                rx.form(
+                    rx.input(
+                        placeholder="Type your message here...",
+                        enter_key_submit=True,
+                        on_change=ChatState.set_current_user_input,
+                        value=ChatState.current_user_input,
+                        width="100%",
+                    ),
+                    on_submit= ChatState.add_user_input,
                 ),
-                on_submit= ChatState.add_user_input,
+                position="fixed",  # Stick the input bar to the bottom
+                bottom="0",  # Align to the bottom of the viewport
+                left=rx.cond(DrawerState.is_open, "20%", "0%"),  # Adjust left position dynamically
+                width=rx.cond(DrawerState.is_open, "80%", "100%"),  # Adjust width dynamically
+                padding="1em",
+                background_color="white",  # Optional: Add a background color
+                box_shadow="0 -2px 5px rgba(0, 0, 0, 0.1)",  # Optional: Add a shadow for better visibility
+            
             ),
+            size="4",
             padding_left=rx.cond(DrawerState.is_open, "20%", "0%"),
+            transition="padding-left 0.3s ease",
             on_mount=ChatState.on_load,
         ),
     )
