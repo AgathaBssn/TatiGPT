@@ -10,9 +10,9 @@ def chat_thread() -> rx.Component:
         rx.vstack(
             rx.foreach(
             ChatState.chat_history,
-            lambda m: message(m[1])  # m[1] is the value, m[0] is the key
+            lambda m: message(m[1]) 
         ),
-            align_items="start",  # Align messages to the start
-            spacing="1",  # Add spacing between messages
+            align_items="start",
+            spacing="1", 
         )
     )

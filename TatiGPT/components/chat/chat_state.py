@@ -7,6 +7,7 @@ from config.logging import logger
 class ChatState(rx.State):
     chat_history: dict[str, dict] = {}
 
+
     current_user_input: str = ""
 
     @rx.event

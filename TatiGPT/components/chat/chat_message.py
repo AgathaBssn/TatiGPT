@@ -15,11 +15,16 @@ def message(qa: dict) -> rx.Component:
     return rx.box(
         rx.markdown(
             content,
+            padding="2px 8px",
+            border_radius="4px",
+            width="fit-content",
             background_color=rx.cond(
-                role == "user",
-                rx.color("pink", 7),
-                rx.color("lime", 7),
+                role == "user", 
+                rx.color("red", 2),
+                rx.color("ruby", 7),
             ),
         ),
-        padding="8px",
+        display="flex   ",
+        justify_content=rx.cond(role == "user", "end", "start"),
+        width="100%",
     )

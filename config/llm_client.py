@@ -7,7 +7,6 @@ class LlmClient:
         pass
 
     async def get_response(self, chat_history):
-        logger.info(f"Response from LLM: {chat_history}")
         try:
             # Call OpenRouter's completion API
             response = completion(
@@ -17,7 +16,7 @@ class LlmClient:
             logger.info(f"Response from LLM: {response}")
             return response["choices"][0]["message"]["content"]
         except Exception as e:
-            #to do handle exception
+            #todo handle exception
             print(f"Error in generating response: {e}")
 
 llm_client = LlmClient()

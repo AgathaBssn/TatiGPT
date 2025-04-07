@@ -16,11 +16,9 @@ def ai_chat() -> rx.Component:
         lateral_menu(),
         rx.container(
             rx.box(
-                "AI Chat",
                 chat_thread(),
                 padding="2em",
                 margin="2em",
-                background_color=rx.color("pink", 7),
             ),
             rx.form(
                 rx.input(
