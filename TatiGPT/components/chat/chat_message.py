@@ -8,21 +8,18 @@ class QA(rx.Base):
 
 
 # A component that display a QA object
-def message(qa: dict):
+def message(qa: dict) -> rx.Component:
     role = qa["role"]
     content = qa["content"]
-
-    # Use rx.cond to determine the background color based on the role
-    background_color = rx.cond(
-        role == "user",
-        rx.color("pink", 7),
-        rx.color("lime", 7),
-    )
 
     return rx.box(
         rx.markdown(
             content,
-            background_color=background_color,
+            background_color=rx.cond(
+                role == "user",
+                rx.color("pink", 7),
+                rx.color("lime", 7),
+            ),
         ),
         padding="1em",
         margin="1em",

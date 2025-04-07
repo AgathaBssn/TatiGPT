@@ -26,13 +26,13 @@ def ai_chat() -> rx.Component:
                 rx.input(
                     placeholder="Type your message here...",
                     enter_key_submit=True,
-                    on_change=ChatState.set_current_user_input(),
+                    on_change=ChatState.set_current_user_input,
                     value=ChatState.current_user_input,
                     width="100%",
                 ),
-                on_submit= ChatState.handle_user_input(),
+                on_submit= ChatState.add_user_input,
             ),
             padding_left=rx.cond(DrawerState.is_open, "20%", "0%"),
-            on_mount=ChatState.on_load(),
+            on_mount=ChatState.on_load,
         ),
     )

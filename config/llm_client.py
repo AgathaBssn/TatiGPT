@@ -3,7 +3,7 @@ from litellm import completion
 from config.logging import logger
 
 # Set the OpenRouter API key
-os.environ["OPENROUTER_API_KEY"] = "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"
+os.environ["OPENROUTER_API_KEY"] = "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"
 
 class LlmClient:
     def __init__(self):
@@ -22,6 +22,5 @@ class LlmClient:
         except Exception as e:
             #to do handle exception
             print(f"Error in generating response: {e}")
-            return "I'm sorry, I couldn't process your request."
 
 llm_client = LlmClient()
