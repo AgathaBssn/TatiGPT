@@ -24,7 +24,8 @@ def message(qa: dict) -> rx.Component:
                 rx.color("ruby", 7),
             ),
         ),
-        display="flex   ",
+        display="flex",
         justify_content=rx.cond(role == "user", "end", "start"),
         width="100%",
+        margin_bottom="8px",
     )
