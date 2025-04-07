@@ -10,7 +10,10 @@ def chat_thread() -> rx.Component:
         rx.vstack(
             rx.foreach(
                 ChatState.chat_history,
-                lambda qa: message(qa),
+                lambda qa: message({
+                    "role": qa["role"],
+                    "content": qa["content"][0]["text"] if isinstance(qa["content"], list) else qa["content"]
+                }),
             ),
         )
     )

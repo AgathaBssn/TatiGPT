@@ -10,6 +10,7 @@ from TatiGPT.components.sidebar import DrawerState, lateral_menu
     title="AI Chat",
     description="Chat with TatiGPT",
 )
+
 def ai_chat() -> rx.Component:
     return (
         lateral_menu(),
@@ -29,7 +30,7 @@ def ai_chat() -> rx.Component:
                     value=ChatState.current_user_input,
                     width="100%",
                 ),
-                on_submit=ChatState.handle_user_input(),
+                on_submit= ChatState.handle_user_input(),
             ),
             padding_left=rx.cond(DrawerState.is_open, "20%", "0%"),
             on_mount=ChatState.on_load(),
