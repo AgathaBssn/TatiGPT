@@ -50,7 +50,10 @@ def lateral_menu():
             )
         ),
         rx.drawer.overlay(),
-        rx.drawer.portal(drawer_content()),
+        rx.drawer.portal(
+            drawer_content(),
+            style={"pointer-events": "auto"},
+            ),
         open=DrawerState.is_open,
         direction="left",
         modal=False,

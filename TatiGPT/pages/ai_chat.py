@@ -33,16 +33,17 @@ def ai_chat() -> rx.Component:
                     ),
                     on_submit= ChatState.add_user_input,
                 ),
-                position="fixed",  # Stick the input bar to the bottom
-                bottom="0",  # Align to the bottom of the viewport
-                left=rx.cond(DrawerState.is_open, "20%", "0%"),  # Adjust left position dynamically
-                width=rx.cond(DrawerState.is_open, "80%", "100%"),  # Adjust width dynamically
+                position="fixed", 
+                bottom="0",
+                left=rx.cond(DrawerState.is_open, "20%", "10%"),
+                width=rx.cond(DrawerState.is_open, "80%", "80%"), 
                 padding="1em",
-                background_color="white",  # Optional: Add a background color
-                box_shadow="0 -2px 5px rgba(0, 0, 0, 0.1)",  # Optional: Add a shadow for better visibility
+                background_color="white", 
+                box_shadow="0 -2px 5px rgba(0, 0, 0, 0.1)",
             
             ),
             size="4",
+            padding="0",
             padding_left=rx.cond(DrawerState.is_open, "20%", "0%"),
             transition="padding-left 0.3s ease",
             on_mount=ChatState.on_load,
