@@ -21,6 +21,5 @@ def message(qa: dict) -> rx.Component:
                 rx.color("lime", 7),
             ),
         ),
-        padding="1em",
-        margin="1em",
+        padding="8px",
     )

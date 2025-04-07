@@ -2,9 +2,6 @@ import os
 from litellm import completion
 from config.logging import logger
 
-# Set the OpenRouter API key
-os.environ["OPENROUTER_API_KEY"] = "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"
-
 class LlmClient:
     def __init__(self):
         pass
