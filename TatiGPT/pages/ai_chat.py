@@ -2,6 +2,7 @@ import reflex as rx
 
 from TatiGPT.components.chat.chat_state import ChatState
 from TatiGPT.components.chat.chat_thread import chat_thread
+from TatiGPT.components.chat.chat_input_bar import chat_input_form
 from TatiGPT.components.sidebar import DrawerState, lateral_menu
 
 
@@ -23,16 +24,7 @@ def ai_chat() -> rx.Component:
                 height="calc(100vh - 100px)", 
             ),
             rx.box(
-                rx.form(
-                    rx.input(
-                        placeholder="Type your message here...",
-                        enter_key_submit=True,
-                        on_change=ChatState.set_current_user_input,
-                        value=ChatState.current_user_input,
-                        width="100%",
-                    ),
-                    on_submit= ChatState.add_user_input,
-                ),
+                chat_input_form(),
                 position="fixed", 
                 bottom="0",
                 left=rx.cond(DrawerState.is_open, "20%", "10%"),
@@ -40,7 +32,6 @@ def ai_chat() -> rx.Component:
                 padding="1em",
                 background_color="white", 
                 box_shadow="0 -2px 5px rgba(0, 0, 0, 0.1)",
-            
             ),
             size="4",
             padding="0",
