@@ -7,6 +7,14 @@ from config.logging import logger
 class ChatState(rx.State):
     chat_history: dict[str, dict] = {}
 
+    def init_chat_history(self):
+        """Initialize the chat history with a context message."""
+        self.chat_history["0"] = {
+            "role": "system",
+            "content": "You are a helpful assistant.\n"
+                       "Sometimes you are asked in french or in english, please respond in the same language as the user.\n"
+                       "Please respond in markdown format, and if the user asks for code, please use the code block format.\n",
+        }
 
     current_user_input: str = ""
 
@@ -22,6 +30,7 @@ class ChatState(rx.State):
     async def on_load(self):
         logger.info("ChatState loaded")
         self.clear_chat_history()
+        self.init_chat_history()
 
     @rx.event
     async def add_user_input(self):

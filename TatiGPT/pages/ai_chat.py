@@ -19,8 +19,8 @@ def ai_chat() -> rx.Component:
                 chat_thread(),
                 padding="2em",
                 margin="2em",
-                overflow_y="auto",  # Enable scrolling for the chat thread
-                height="calc(100vh - 100px)",  # Adjust height to leave space for the input bar
+                overflow_y="auto",  
+                height="calc(100vh - 100px)", 
             ),
             rx.box(
                 rx.form(

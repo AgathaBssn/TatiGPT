@@ -12,7 +12,11 @@ def message(qa: dict) -> rx.Component:
     role = qa["role"]
     content = qa["content"]
 
-    return rx.box(
+    # Skip the system prompt
+    return rx.cond(
+        role == "system",
+        rx.box(),
+        rx.box(
         rx.markdown(
             content,
             padding="2px 8px",
@@ -28,4 +32,5 @@ def message(qa: dict) -> rx.Component:
         justify_content=rx.cond(role == "user", "end", "start"),
         width="100%",
         margin_bottom="8px",
+        )
     )
