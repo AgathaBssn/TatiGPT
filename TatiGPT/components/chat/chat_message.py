@@ -8,16 +8,29 @@ class QA(rx.Base):
 
 
 # A component that display a QA object
-def message(qa: QA):
-    return rx.box(
+def message(qa: dict) -> rx.Component:
+    role = qa["role"]
+    content = qa["content"]
+
+    # Skip the system prompt
+    return rx.cond(
+        role == "system",
+        rx.box(),
+        rx.box(
         rx.markdown(
-            qa.question,
-            background_color=rx.color("pink", 7),
+            content,
+            padding="2px 8px",
+            border_radius="4px",
+            width="fit-content",
+            background_color=rx.cond(
+                role == "user", 
+                rx.color("red", 2),
+                rx.color("ruby", 7),
+            ),
         ),
-        rx.markdown(
-            qa.answer,
-            background_color=rx.color("lime", 7),
-        ),
-        padding="1em",
-        margin="1em",
+        display="flex",
+        justify_content=rx.cond(role == "user", "end", "start"),
+        width="100%",
+        margin_bottom="8px",
+        )
     )

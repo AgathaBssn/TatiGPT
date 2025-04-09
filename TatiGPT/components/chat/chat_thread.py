@@ -7,10 +7,6 @@ from TatiGPT.components.chat.chat_state import ChatState
 # Component that represent a hole chat
 def chat_thread() -> rx.Component:
     return rx.auto_scroll(
-        rx.vstack(
-            rx.foreach(
-                ChatState.chat_history,
-                lambda qa: message(qa),
-            ),
-        )
-    )
+            rx.foreach(ChatState.chat_history,lambda m: message(m[1])),
+            align_items="start",
+        ),

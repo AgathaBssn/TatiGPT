@@ -1,34 +1,22 @@
 import os
-import requests
-from together import Together
+from litellm import completion
+from config.logging import logger
 
 class LlmClient:
     def __init__(self):
-        self.client = Together()
+        pass
 
-    def get_response(self, user_input: str):
-        # Vérification pour s'assurer que user_input est une chaîne de caractères valide
-        if not isinstance(user_input, str) or not user_input.strip():
-            raise ValueError("Le contenu de l'entrée utilisateur doit être une chaîne de caractères non vide.")
+    async def get_response(self, chat_history):
+        try:
+            # Call OpenRouter's completion API
+            response = completion(
+                model="openrouter/meta-llama/llama-4-maverick:free",
+                messages=chat_history
+            )
+            logger.info(f"Response from LLM: {response}")
+            return response["choices"][0]["message"]["content"]
+        except Exception as e:
+            #todo handle exception
+            print(f"Error in generating response: {e}")
 
-        # Ajout du champ "type" dans le message
-        messages = [
-            {"role": "user", "content": user_input, "type": "text"}
-        ]
-        
-        # Création de la demande de complétion
-        stream = self.client.chat.completions.create(
-            model="meta-llama/Llama-Vision-Free",
-            messages=messages,
-            stream=True
-        )
-
-        response_content = ""
-        for chunk in stream:
-            response_content += chunk.choices[0].delta.content or ""
-
-        return response_content
-
-# Usage example
 llm_client = LlmClient()
-

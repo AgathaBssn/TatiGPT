@@ -20,6 +20,7 @@ def drawer_content():
                         color=rx.color("white", 7),
                     ),
                     on_click=DrawerState.toggle_drawer,
+                    _hover={"cursor": "pointer"},
                 )
             ),
             rx.link(
@@ -34,6 +35,7 @@ def drawer_content():
         width="20%",
         padding="2em",
         background_color=rx.color("pink", 7),
+        style={"pointer-events": "auto"},
     )
 
 
@@ -47,10 +49,14 @@ def lateral_menu():
                     color=rx.color("crimson", 7),
                 ),
                 on_click=DrawerState.toggle_drawer,
+                _hover={"cursor": "pointer"},
             )
         ),
         rx.drawer.overlay(),
-        rx.drawer.portal(drawer_content()),
+        rx.drawer.portal(
+            drawer_content(),
+            style={"pointer-events": "auto"},
+            ),
         open=DrawerState.is_open,
         direction="left",
         modal=False,
